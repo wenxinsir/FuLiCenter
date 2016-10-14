@@ -1,16 +1,18 @@
 package cn.ucai.fulicenter.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.utils.MFGT;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private final long sleepTime = 2000;
+    private final long sleepTime = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,22 +23,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        new Thread(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                long start = System.currentTimeMillis();
-                long costTime = System.currentTimeMillis() - start;
-                if (sleepTime - costTime > 0) {
-                    try {
-                        Thread.sleep(sleepTime - costTime);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                MFGT.gotoMainActivity(SplashActivity.this);
                 finish();
             }
-        }).start();
-
+        }, sleepTime);
     }
 }

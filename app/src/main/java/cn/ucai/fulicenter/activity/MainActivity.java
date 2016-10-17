@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setRadioButtonStatus() {
         for (int i = 0; i < rbs.length; i++) {
-            if (rbs[i] == cart) {
+            if (i == index) {
                 rbs[i].setChecked(true);
             } else {
                 rbs[i].setChecked(false);

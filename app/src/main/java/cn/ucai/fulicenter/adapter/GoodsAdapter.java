@@ -9,12 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.utils.ImageLoader;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 
 /**
@@ -24,9 +26,10 @@ public class GoodsAdapter extends Adapter {
     Context mContext;
     List<NewGoodsBean> mList;
 
-    public GoodsAdapter(Context mContext, List<NewGoodsBean> mList) {
+    public GoodsAdapter(Context mContext, List<NewGoodsBean> list) {
         this.mContext = mContext;
-        this.mList = mList;
+        mList = new ArrayList<>();
+        mList.addAll(list);
     }
 
     @Override
@@ -47,7 +50,7 @@ public class GoodsAdapter extends Adapter {
         } else {
             GoodsViewHolder vh = (GoodsViewHolder) holder;
             NewGoodsBean goods = mList.get(position);
-            //set image
+            ImageLoader.downloadImg(mContext, vh.ivGoodsTh, goods.getGoodsThumb());
             vh.tvGoods.setText(goods.getGoodsName());
             vh.tvmoney.setText(goods.getCurrencyPrice());
         }
@@ -64,6 +67,14 @@ public class GoodsAdapter extends Adapter {
             return I.TYPE_FOOTER;
         }
         return I.TYPE_ITEM;
+    }
+
+    public void initData(ArrayList<NewGoodsBean> list) {
+        if (mList != null) {
+            mList.clear();
+        }
+        mList.addAll(list);
+        notifyDataSetChanged();
     }
 
     static class GoodsViewHolder extends ViewHolder {

@@ -70,7 +70,6 @@ public class NewgoodsGragment extends Fragment {
                 L.e("error" + error);
             }
         });
-
     }
 
 

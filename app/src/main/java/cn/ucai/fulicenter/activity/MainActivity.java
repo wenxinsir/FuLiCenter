@@ -1,6 +1,7 @@
 package cn.ucai.fulicenter.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.fragment.NewgoodsGragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     int index;
     RadioButton[] rbs;
+    Fragment[] mFragments;
+    NewgoodsGragment mNewgoodsfragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,17 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Log.i("MainActivity", "onCreate");
         initView();
+        initFragment();
+    }
+
+    private void initFragment() {
+        mFragments = new Fragment[5];
+        mNewgoodsfragment = new NewgoodsGragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_container, mNewgoodsfragment)
+                .show(mNewgoodsfragment)
+                .commit();
     }
 
     private void initView() {

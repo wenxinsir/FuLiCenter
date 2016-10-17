@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.utils;
+package cn.ucai.fulicenter.net;
 
 import android.content.Context;
 import android.os.Handler;
@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.I;
+import cn.ucai.fulicenter.activity.utils.L;
 import cn.ucai.fulicenter.bean.Result;
 import okhttp3.Cache;
 import okhttp3.Call;
@@ -144,7 +145,7 @@ public class OkHttpUtils<T> {
 
 
     private void initHandler() {
-        mHandler = new Handler(FuLiCenterApplication.applicationContext.getMainLooper()) {
+        mHandler = new Handler(FuLiCenterApplication.getInstance().getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {

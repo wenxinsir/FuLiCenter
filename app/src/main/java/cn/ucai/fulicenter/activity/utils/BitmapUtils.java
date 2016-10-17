@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.utils;
+package cn.ucai.fulicenter.activity.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;

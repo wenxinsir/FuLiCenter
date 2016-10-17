@@ -22,11 +22,6 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
             <RadioButton
                 android:id="@+id/new_good"
                 android:layout_weight="1"
@@ -108,6 +103,5 @@
                 android:textColor="@color/main_botton_text_color"
                 android:checked="false"
                 style="@style/menu_item_style" />
-        </RadioGroup>
     </LinearLayout>
 </LinearLayout>

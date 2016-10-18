@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.MainActivity;
+import cn.ucai.fulicenter.activity.utils.CommonUtils;
 import cn.ucai.fulicenter.activity.utils.ConvertUtils;
 import cn.ucai.fulicenter.activity.utils.L;
 import cn.ucai.fulicenter.adapter.GoodsAdapter;
@@ -52,21 +53,50 @@ public class NewgoodsGragment extends Fragment {
         mAdapter = new GoodsAdapter(mContext, mList);
         initView();
         initData();
+        setListener();
         return layout;
+    }
+
+    private void setListener() {
+        setPullUpListener();
+        setPullDownListener();
+    }
+
+    /**
+     * 下啦刷新
+     */
+    private void setPullDownListener() {
+
+    }
+
+    private void setPullUpListener() {
+
     }
 
     private void initData() {
         NetDao.downloadNewGoods(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
+                mSrl.setRefreshing(false);
+                mTvRefresh.setVisibility(View.GONE);
+                mAdapter.setMore(true);
+                L.e("result"+result);
                 if (result != null && result.length > 0) {
                     ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
                     mAdapter.initData(list);
+                    if (list.size() < I.PAGE_SIZE_DEFAULT) {//如果6<10
+                        mAdapter.setMore(false);
+                    }
+                } else {
+                    mAdapter.setMore(false);
                 }
             }
 
             @Override
             public void onError(String error) {
+                mSrl.setRefreshing(false);
+                mTvRefresh.setVisibility(View.GONE);
+                CommonUtils.showShortToast(error);
                 L.e("error" + error);
             }
         });

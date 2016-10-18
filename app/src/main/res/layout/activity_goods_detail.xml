@@ -98,7 +98,7 @@
             android:layout_height="200dp"
             android:layout_marginTop="50dp"
             android:layout_below="@id/tv_good_price_current">
-            <cn.ucai.fulicenter.view.SlideAutoLoop
+            <cn.ucai.fulicenter.view.SlideAutoLoopView
                 android:id="@+id/salv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -24,14 +24,14 @@ public class PropertiesBean {
     private String colorCode;
     private String colorImg;
     private String colorUrl;
-    private AlbunsBean[] albuns;
+    private AlbumsBean[] albums;
 
-    public AlbunsBean[] getAlbuns() {
-        return albuns;
+    public AlbumsBean[] getAlbums() {
+        return albums;
     }
 
-    public void setAlbuns(AlbunsBean[] albuns) {
-        this.albuns = albuns;
+    public void setAlbums(AlbumsBean[] albums) {
+        this.albums = albums;
     }
 
     public int getId() {
@@ -103,7 +103,7 @@ public class PropertiesBean {
                 ", colorCode='" + colorCode + '\'' +
                 ", colorImg='" + colorImg + '\'' +
                 ", colorUrl='" + colorUrl + '\'' +
-                ", albuns=" + Arrays.toString(albuns) +
+                ", albums=" + Arrays.toString(albums) +
                 '}';
     }
 }

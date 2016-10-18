@@ -1,9 +1,9 @@
 package cn.ucai.fulicenter.bean;
 
 /**
- * Created by Administrator on 2016/10/13.
+ * Created by Administrator on 2016/10/18.
  */
-public class AlbunsBean {
+public class AlbumsBean {
 
     /**
      * pid : 7677
@@ -49,12 +49,12 @@ public class AlbunsBean {
         this.thumbUrl = thumbUrl;
     }
 
-    public AlbunsBean() {
+    public AlbumsBean() {
     }
 
     @Override
     public String toString() {
-        return "AlbunsBean{" +
+        return "AlbumsBean{" +
                 "pid=" + pid +
                 ", imgId=" + imgId +
                 ", imgUrl='" + imgUrl + '\'' +
@@ -62,3 +62,4 @@ public class AlbunsBean {
                 '}';
     }
 }
+

@@ -16,7 +16,7 @@ import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.utils.CommonUtils;
 import cn.ucai.fulicenter.activity.utils.L;
 import cn.ucai.fulicenter.activity.utils.MFGT;
-import cn.ucai.fulicenter.bean.AlbunsBean;
+import cn.ucai.fulicenter.bean.AlbumsBean;
 import cn.ucai.fulicenter.bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.net.OkHttpUtils;
@@ -25,9 +25,6 @@ import cn.ucai.fulicenter.view.SlideAutoLoopView;
 
 public class GoodsDetailActivity extends AppCompatActivity {
 
-
-    int goodsId;
-    GoodsDetailActivity mContent;
     @Bind(R.id.backClickArea)
     LinearLayout backClickArea;
     @Bind(R.id.tv_good_name_english)
@@ -49,13 +46,16 @@ public class GoodsDetailActivity extends AppCompatActivity {
     @Bind(R.id.activity_goods_detail)
     RelativeLayout activityGoodsDetail;
 
+    int goodsId;
+    GoodsDetailActivity mContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detail);
         ButterKnife.bind(this);
-        int goodsID = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
-        L.e("details", "goodsid=" + goodsID);
+        goodsId = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
+        L.e("details", "goodsid=" + goodsId);
         if (goodsId == 0) {
             finish();
         }
@@ -100,7 +100,7 @@ public class GoodsDetailActivity extends AppCompatActivity {
 
     private int getAlbumImgCount(GoodsDetailsBean details) {
         if (details.getProperties() != null && details.getProperties().length > 0) {
-            return details.getProperties()[0].getAlbuns().length;
+            return details.getProperties()[0].getAlbums().length;
         }
         return 0;
     }
@@ -108,7 +108,7 @@ public class GoodsDetailActivity extends AppCompatActivity {
     private String[] getAlbumImgUrl(GoodsDetailsBean details) {
         String[] urls = new String[]{};
         if (details.getProperties() != null && details.getProperties().length > 0) {
-            AlbunsBean[] albums = details.getProperties()[0].getAlbuns();
+            AlbumsBean[] albums = details.getProperties()[0].getAlbums();
             urls = new String[albums.length];
             for (int i = 0; i < albums.length; i++) {
                 urls[i] = albums[i].getImgUrl();

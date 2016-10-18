@@ -25,6 +25,7 @@ import cn.ucai.fulicenter.adapter.GoodsAdapter;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.net.OkHttpUtils;
+import cn.ucai.fulicenter.view.SpaceItemDecoration;
 
 /**
  * Created by Administrator on 2016/10/17.
@@ -92,6 +93,13 @@ public class NewgoodsGragment extends Fragment {
                     downloadNewGoods(I.ACTION_PULL_UP);
                 }
             }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int firstPosition = glm.findFirstVisibleItemPosition();
+                mSrl.setEnabled(firstPosition==0);
+            }
         });
     }
 
@@ -144,6 +152,7 @@ public class NewgoodsGragment extends Fragment {
         mRv.setLayoutManager(glm);
         mRv.setHasFixedSize(true);
         mRv.setAdapter(mAdapter);
+        mRv.addItemDecoration(new SpaceItemDecoration(12));
     }
 
     @Override

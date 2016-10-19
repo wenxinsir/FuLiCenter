@@ -23,11 +23,9 @@ import cn.ucai.fulicenter.view.FooterViewHolder;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class BoutiqueAdapter extends Adapter {
+public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder> {
     Context mContext;
     ArrayList<BoutiqueBean> mList;
-    boolean isMore;
-    private int footerString;
 
     public BoutiqueAdapter(Context context,ArrayList<BoutiqueBean> list) {
         mContext = context;
@@ -36,57 +34,24 @@ public class BoutiqueAdapter extends Adapter {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder holder = null;
-        if (viewType == I.TYPE_FOOTER) {
-            holder = new FooterViewHolder(LayoutInflater.from(mContext)
-                    .inflate(R.layout.item_footer, parent, false));
-        } else {
-            holder = new BoutiqueViewHolder(LayoutInflater.from(mContext)
+    public BoutiqueViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        BoutiqueViewHolder holder =new BoutiqueViewHolder(LayoutInflater.from(mContext)
                     .inflate(R.layout.item_boutique, parent, false));
-        }
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        if (holder instanceof FooterViewHolder) {
-            ((FooterViewHolder) holder).tvFooter.setText(getFooterString());
-        }
-        if (holder instanceof BoutiqueViewHolder) {
+    public void onBindViewHolder(BoutiqueViewHolder holder, int position) {
             BoutiqueBean boutiqueBean = mList.get(position);
-            ImageLoader.downloadImg(mContext,((BoutiqueViewHolder)holder).mLvBoutiqueImg,boutiqueBean.getImageurl());
-            ((BoutiqueViewHolder)holder).mTvBoutiqueTitle.setText(boutiqueBean.getTitle());
-            ((BoutiqueViewHolder)holder).mTvBoutiqueName.setText(boutiqueBean.getName());
-            ((BoutiqueViewHolder)holder).mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
-        }
-    }
-
-    public int getFooterString() {
-        return isMore?R.string.load_more:R.string.no_more;
-    }
-
-    public boolean isMore() {
-        return isMore;
-    }
-
-    public void setMore(boolean more) {
-        isMore = more;
-        notifyDataSetChanged();
-
+            ImageLoader.downloadImg(mContext,holder.mLvBoutiqueImg,boutiqueBean.getImageurl());
+            holder.mTvBoutiqueTitle.setText(boutiqueBean.getTitle());
+            holder.mTvBoutiqueName.setText(boutiqueBean.getName());
+            holder.mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return mList != null ? mList.size() + 1 : 1;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
-            return I.TYPE_FOOTER;
-        }
-        return I.TYPE_ITEM;
+        return mList != null ? mList.size() : 0;
     }
 
     public void initData(ArrayList<BoutiqueBean> list) {
@@ -97,12 +62,7 @@ public class BoutiqueAdapter extends Adapter {
         notifyDataSetChanged();
     }
 
-    public void addData(ArrayList<BoutiqueBean> list) {
-        mList.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    static class BoutiqueViewHolder extends ViewHolder{
+     class BoutiqueViewHolder extends ViewHolder{
         @Bind(R.id.ivBoutiqueImg)
         ImageView mLvBoutiqueImg;
         @Bind(R.id.tvBoutiqueTitle)

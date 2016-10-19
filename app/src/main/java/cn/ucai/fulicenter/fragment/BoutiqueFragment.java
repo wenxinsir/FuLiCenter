@@ -55,33 +55,39 @@ public class BoutiqueFragment extends Fragment {
         mAdapter = new BoutiqueAdapter(mContent,mList);
         initView();
         initData();
+        setListener();
         return layout;
     }
 
-    private void initData() {
-        downloadBoutique(I.ACTION_DOWNLOAD);
+    private void setListener() {
+        setPullDownListener();
     }
 
-    public void downloadBoutique(final int action){
+    private void setPullDownListener() {
+        mSrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                mSrl.setRefreshing(true);
+                mTvRefresh.setVisibility(View.VISIBLE);
+                downloadBoutique();
+            }
+        });
+    }
+
+    private void initData() {
+        downloadBoutique();
+    }
+
+    public void downloadBoutique(){
         NetDao.downloadBuotique(mContent,new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
             @Override
             public void onSuccess(BoutiqueBean[] result) {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(true);
                 L.e("result" + result);
                 if (result != null && result.length > 0) {
                     ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
-                    if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
                         mAdapter.initData(list);
-                    } else {
-                        mAdapter.addData(list);
-                    }
-                    if (list.size() < I.PAGE_SIZE_DEFAULT) {
-                        mAdapter.setMore(false);
-                    }
-                } else {
-                    mAdapter.setMore(false);
                 }
             }
 
@@ -89,7 +95,6 @@ public class BoutiqueFragment extends Fragment {
             public void onError(String error) {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(false);
                 CommonUtils.showShortToast(error);
                 L.e("error" + error);
             }

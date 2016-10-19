@@ -30,7 +30,7 @@ import cn.ucai.fulicenter.view.SpaceItemDecoration;
 /**
  * Created by Administrator on 2016/10/17.
  */
-public class NewgoodsGragment extends Fragment {
+public class NewgoodsFragment extends Fragment {
     @Bind(R.id.rv)
     RecyclerView mRv;
     @Bind(R.id.tv_refresh)
@@ -87,8 +87,8 @@ public class NewgoodsGragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 int lastPosition = glm.findLastVisibleItemPosition();
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastPosition == mAdapter.getItemCount()-1
-                    && mAdapter.isMore()){
+                        && lastPosition == mAdapter.getItemCount()-1
+                        && mAdapter.isMore()){
                     pageId++;
                     downloadNewGoods(I.ACTION_PULL_UP);
                 }

@@ -51,6 +51,7 @@ public class BoutiqueFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
         mContent = (MainActivity) getContext();
+        mList = new ArrayList<>();
         mAdapter = new BoutiqueAdapter(mContent,mList);
         initView();
         initData();
@@ -108,7 +109,7 @@ public class BoutiqueFragment extends Fragment {
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_yellow)
         );
-        llm = new GridLayoutManager(mContent, I.COLUM_NUM);
+        llm = new LinearLayoutManager(mContent);
         mRv.setLayoutManager(llm);
         mRv.setHasFixedSize(true);
         mRv.setAdapter(mAdapter);

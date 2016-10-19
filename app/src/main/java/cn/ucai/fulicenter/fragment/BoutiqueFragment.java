@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.activity.utils.CommonUtils;
@@ -31,7 +30,7 @@ import cn.ucai.fulicenter.view.SpaceItemDecoration;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class BoutiqueFragment extends Fragment {
+public class BoutiqueFragment extends BaseFragment {
 
     @Bind(R.id.tv_refresh)
     TextView mTvRefresh;
@@ -53,13 +52,12 @@ public class BoutiqueFragment extends Fragment {
         mContent = (MainActivity) getContext();
         mList = new ArrayList<>();
         mAdapter = new BoutiqueAdapter(mContent,mList);
-        initView();
-        initData();
-        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return layout;
     }
 
-    private void setListener() {
+    @Override
+    protected void setListener() {
         setPullDownListener();
     }
 
@@ -74,7 +72,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         downloadBoutique();
     }
 
@@ -107,7 +106,8 @@ public class BoutiqueFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         mSrl.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),

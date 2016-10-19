@@ -2,7 +2,6 @@ package cn.ucai.fulicenter.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 import cn.ucai.fulicenter.activity.utils.MFGT;
 

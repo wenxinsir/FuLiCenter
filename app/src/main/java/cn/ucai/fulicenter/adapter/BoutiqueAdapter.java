@@ -13,9 +13,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.utils.ImageLoader;
+import cn.ucai.fulicenter.activity.utils.L;
+import cn.ucai.fulicenter.activity.utils.MFGT;
 import cn.ucai.fulicenter.bean.BoutiqueBean;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.view.FooterViewHolder;
@@ -47,6 +50,8 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder>
             holder.mTvBoutiqueTitle.setText(boutiqueBean.getTitle());
             holder.mTvBoutiqueName.setText(boutiqueBean.getName());
             holder.mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
+            holder.mLayoutBoutiqueItem.setTag(boutiqueBean);
+        L.i("1111111" + boutiqueBean.toString());
     }
 
     @Override
@@ -78,5 +83,11 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder>
             super(view);
             ButterKnife.bind(this, view);
         }
+         @OnClick(R.id.layout_boutique_item)
+         public void onBoutiqueClick(){
+             BoutiqueBean bean = (BoutiqueBean) mLayoutBoutiqueItem.getTag();
+             L.i("２２２２２２２２２" +bean.toString());
+             MFGT.gotoBoutiqueChildActivity(mContext,bean);
+         }
     }
 }

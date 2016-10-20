@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.utils.L;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.fragment.CategoryFragment;
 import cn.ucai.fulicenter.fragment.NewgoodsFragment;
 
 public class MainActivity extends BaseActivity {
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity {
     Fragment[] mFragments;
     NewgoodsFragment mNewgoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
+    CategoryFragment mCategoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +49,20 @@ public class MainActivity extends BaseActivity {
 
     private void initFragment() {
         mFragments = new Fragment[5];
+        // 实例化
         mNewgoodsFragment = new NewgoodsFragment();
         mBoutiqueFragment = new BoutiqueFragment();
+        mCategoryFragment = new CategoryFragment();
         mFragments[0] = mNewgoodsFragment;
         mFragments[1] = mBoutiqueFragment;
+        mFragments[2] = mCategoryFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, mNewgoodsFragment)
                 .add(R.id.fragment_container, mBoutiqueFragment)
+                .add(R.id.fragment_container, mCategoryFragment)
                 .hide(mBoutiqueFragment)
+                .hide(mCategoryFragment)
                 .show(mNewgoodsFragment)
                 .commit();
     }
@@ -92,21 +99,19 @@ public class MainActivity extends BaseActivity {
             case R.id.category:
                 index = 2;
                 break;
-            case R.id.cart:
+            case R.id.personal:
                 index = 3;
                 break;
-            case R.id.personal:
+            case R.id.cart:
                 index = 4;
                 break;
         }
         setFragments();
         L.i("index="+index);
-        L.i("currentINdex = " + currentIndex);
-        setRadioButtonStatus();
+        L.i("currentIndex = " + currentIndex);
     }
 
     private void setFragments(){
-
         if (index!=currentIndex){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.hide(mFragments[currentIndex]);

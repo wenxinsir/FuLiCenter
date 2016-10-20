@@ -36,11 +36,13 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
+        //获取大类的数量
         return mGroupList != null ? mGroupList.size() : 0;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
+        //小类的数量
         return mChildList != null && mChildList.get(groupPosition) != null ?
                 mChildList.get(groupPosition).size() : 0;
     }
@@ -75,7 +77,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpand, View view, ViewGroup viewGroup) {
         GroupViewHolder holder;
         if (view == null) {
-            view = view.inflate(mContext, R.layout.item_category_group, null);
+            view = View.inflate(mContext, R.layout.item_category_group, null);
             holder = new GroupViewHolder(view);
             view.setTag(holder);
         } else {
@@ -92,10 +94,10 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup viewGroup) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
         ChildViewHolder holder;
         if (view == null) {
-            view = view.inflate(mContext, R.layout.item_category_child, null);
+            view = View.inflate(mContext, R.layout.item_category_child, null);
             holder = new ChildViewHolder(view);
             view.setTag(holder);
         } else {
@@ -103,7 +105,9 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         }
         CategoryChildBean child = getChild(groupPosition, childPosition);
         if (child != null) {
+            //图片的绑定
             ImageLoader.downloadImg(mContext, holder.mIvCategoryChildThumb, child.getImageUrl());
+            //名称的绑定
             holder.mTvCategoryChildName.setText(child.getName());
         }
         return view;
@@ -112,6 +116,19 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    public void initData(ArrayList<CategoryGroupBean> groupList,
+                         ArrayList<ArrayList<CategoryChildBean>> childList) {
+        if (mGroupList!=null){
+            mGroupList.clear();
+        }
+       mGroupList.addAll(groupList);
+        if (mChildList!=null){
+            mChildList.clear();
+        }
+        mChildList.addAll(childList);
+        notifyDataSetChanged();
     }
 
     class GroupViewHolder {

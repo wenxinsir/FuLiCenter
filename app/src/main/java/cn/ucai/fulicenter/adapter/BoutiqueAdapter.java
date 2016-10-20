@@ -14,14 +14,11 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.activity.utils.ImageLoader;
-import cn.ucai.fulicenter.activity.utils.L;
-import cn.ucai.fulicenter.activity.utils.MFGT;
+import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.bean.BoutiqueBean;
-import cn.ucai.fulicenter.bean.NewGoodsBean;
-import cn.ucai.fulicenter.view.FooterViewHolder;
 
 /**
  * Created by Administrator on 2016/10/19.

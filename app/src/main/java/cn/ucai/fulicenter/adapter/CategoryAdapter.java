@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.activity.utils.ImageLoader;
-import cn.ucai.fulicenter.activity.utils.MFGT;
+import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.bean.CategoryChildBean;
 import cn.ucai.fulicenter.bean.CategoryGroupBean;
 
@@ -95,7 +96,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
         ChildViewHolder holder;
         if (view == null) {
             view = View.inflate(mContext, R.layout.item_category_child, null);
@@ -106,14 +107,16 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         }
         final CategoryChildBean child = getChild(groupPosition, childPosition);
         if (child != null) {
-            //图片的绑定
             ImageLoader.downloadImg(mContext, holder.mIvCategoryChildThumb, child.getImageUrl());
-            //名称的绑定
             holder.mTvCategoryChildName.setText(child.getName());
             holder.mLayoutCategoryChild.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MFGT.gotoCategoryChildActivity(mContext,child.getId());
+                    ArrayList<CategoryChildBean> list = mChildList.get(groupPosition);
+                    String groupName = mGroupList.get(groupPosition).getName();
+                    L.e("111111111="+groupName);
+                    MFGT.gotoCategoryChildActivity(mContext,child.getId(),groupName,list);
+                    L.e("66666="+groupName);
                 }
             });
         }

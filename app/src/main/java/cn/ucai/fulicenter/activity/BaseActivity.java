@@ -3,7 +3,7 @@ package cn.ucai.fulicenter.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import cn.ucai.fulicenter.activity.utils.MFGT;
+import cn.ucai.fulicenter.utils.MFGT;
 
 
 public abstract class BaseActivity extends AppCompatActivity {

@@ -1,7 +1,6 @@
 package cn.ucai.fulicenter.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.View;
@@ -20,9 +19,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.activity.GoodsDetailActivity;
-import cn.ucai.fulicenter.activity.utils.ImageLoader;
-import cn.ucai.fulicenter.activity.utils.MFGT;
+import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.view.FooterViewHolder;
 

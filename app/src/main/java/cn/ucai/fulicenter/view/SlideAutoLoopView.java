@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.ucai.fulicenter.activity.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.ImageLoader;
 
 
 /**

@@ -13,6 +13,7 @@ import cn.ucai.fulicenter.bean.NewGoodsBean;
  * Created by Administrator on 2016/10/17.
  */
 public class NetDao {
+    // 新品
     public static void downloadNewGoods(Context context, int catId,int pageId, OkHttpUtils.OnCompleteListener<NewGoodsBean[]> listener) {
         OkHttpUtils utils = new OkHttpUtils(context);
         utils.setRequestUrl(I.REQUEST_FIND_NEW_BOUTIQUE_GOODS)
@@ -31,7 +32,7 @@ public class NetDao {
                 .execute(listener);
 
     }
-
+// 精选
     public static void downloadBuotique(Context context, OkHttpUtils.OnCompleteListener<BoutiqueBean[]> listener){
         OkHttpUtils utils = new OkHttpUtils(context);
         utils .setRequestUrl(I.REQUEST_FIND_BOUTIQUES)
@@ -39,6 +40,7 @@ public class NetDao {
                 .execute(listener);
     }
 
+    // 分类
     public static void downloadCategoryGroup(Context context,OkHttpUtils.OnCompleteListener<CategoryGroupBean[]> listener){
         OkHttpUtils utils = new OkHttpUtils(context);
         utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_GROUP)
@@ -51,6 +53,16 @@ public class NetDao {
         utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_CHILDREN)
                 .addParam(I.CategoryChild.PARENT_ID, String.valueOf(parentId))
                 .targetClass(CategoryChildBean[].class)
+                .execute(listener);
+    }
+    // 分类二级
+    public static void downloadCategoryGoods(Context context, int catId,int pageId, OkHttpUtils.OnCompleteListener<NewGoodsBean[]> listener) {
+        OkHttpUtils utils = new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_GOOD_DETAILS)
+                .addParam(I.NewAndBoutiqueGoods.CAT_ID, String.valueOf(catId))
+                .addParam(I.PAGE_ID, String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE, String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(NewGoodsBean[].class)
                 .execute(listener);
     }
 }

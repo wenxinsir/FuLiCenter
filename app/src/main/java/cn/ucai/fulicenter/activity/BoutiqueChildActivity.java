@@ -47,7 +47,7 @@ public class BoutiqueChildActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_boutique_child);
         ButterKnife.bind(this);
-        boutique = (BoutiqueBean) getIntent().getParcelableExtra(I.Boutique.CAT_ID);
+        boutique = (BoutiqueBean) getIntent().getSerializableExtra(I.Boutique.CAT_ID);
         L.i("8888888888" +boutique.toString());
         if (boutique == null){
             finish();

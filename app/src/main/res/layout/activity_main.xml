@@ -31,7 +31,7 @@
                 android:onClick="onCheckedChange"
                 android:text="新品"
                 android:textColor="@color/main_botton_text_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/boutique"
@@ -44,7 +44,7 @@
                 android:onClick="onCheckedChange"
                 android:text="精选"
                 android:textColor="@color/main_botton_text_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/category"
@@ -57,7 +57,7 @@
                 android:onClick="onCheckedChange"
                 android:text="分类"
                 android:textColor="@color/main_botton_text_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/personal"
@@ -68,9 +68,9 @@
                 android:drawableTop="@drawable/selector_menu_item_personal_center"
                 android:gravity="center"
                 android:onClick="onCheckedChange"
-                android:text="收藏"
+                android:text="个人中心"
                 android:textColor="@color/main_botton_text_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/cart"
@@ -83,7 +83,7 @@
                 android:onClick="onCheckedChange"
                 android:text="购物车"
                 android:textColor="@color/main_botton_text_color"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </RadioGroup>
 

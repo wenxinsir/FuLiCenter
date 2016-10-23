@@ -9,11 +9,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.fragment.CategoryFragment;
 import cn.ucai.fulicenter.fragment.NewgoodsFragment;
+import cn.ucai.fulicenter.utils.MFGT;
 
 public class MainActivity extends BaseActivity {
 
@@ -72,8 +74,8 @@ public class MainActivity extends BaseActivity {
         rbs[0] = newGood;
         rbs[1] = boutique;
         rbs[2] = category;
-        rbs[3] = cart;
-        rbs[4] = personal;
+        rbs[3] = personal;
+        rbs[4] = cart;
     }
 
     @Override
@@ -99,7 +101,11 @@ public class MainActivity extends BaseActivity {
                 index = 2;
                 break;
             case R.id.personal:
-                index = 3;
+                if(FuLiCenterApplication.getUsername()==null){
+                    MFGT.gotoLogin(this);
+                }else {
+                    index = 3;
+                }
                 break;
             case R.id.cart:
                 index = 4;

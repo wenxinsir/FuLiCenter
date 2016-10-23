@@ -1,36 +1,45 @@
 package cn.ucai.fulicenter.bean;
 
-/**
- * Created by Administrator on 2016/10/13.
- */
-public class ColorBean {
-    private int colorid;
-    private String colorname;
+import java.io.Serializable;
+
+public class ColorBean implements Serializable {
+
+    /**
+     * catId : 262
+     * colorId : 1
+     * colorName : 灰色
+     * colorCode : #959595
+     * colorImg : 121.197.1.20/images/201309/1380064809234134935.jpg
+     */
+
+    private int catId;
+    private int colorId;
+    private String colorName;
     private String colorCode;
-    private String colorUrl;
+    private String colorImg;
 
-    public int getColorid() {
-        return colorid;
+    public int getCatId() {
+        return catId;
     }
 
-    public void setColorid(int colorid) {
-        this.colorid = colorid;
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
-    public String getColorname() {
-        return colorname;
+    public int getColorId() {
+        return colorId;
     }
 
-    public void setColorname(String colorname) {
-        this.colorname = colorname;
+    public void setColorId(int colorId) {
+        this.colorId = colorId;
     }
 
-    public String getColorUrl() {
-        return colorUrl;
+    public String getColorName() {
+        return colorName;
     }
 
-    public void setColorUrl(String colorUrl) {
-        this.colorUrl = colorUrl;
+    public void setColorName(String colorName) {
+        this.colorName = colorName;
     }
 
     public String getColorCode() {
@@ -41,17 +50,22 @@ public class ColorBean {
         this.colorCode = colorCode;
     }
 
-    public ColorBean() {
+    public String getColorImg() {
+        return colorImg;
+    }
+
+    public void setColorImg(String colorImg) {
+        this.colorImg = colorImg;
     }
 
     @Override
     public String toString() {
         return "ColorBean{" +
-                "colorid=" + colorid +
-                ", colorname='" + colorname + '\'' +
+                "catId=" + catId +
+                ", colorId=" + colorId +
+                ", colorName='" + colorName + '\'' +
                 ", colorCode='" + colorCode + '\'' +
-                ", colorUrl='" + colorUrl + '\'' +
+                ", colorImg='" + colorImg + '\'' +
                 '}';
     }
 }
-

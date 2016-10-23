@@ -22,7 +22,7 @@ import cn.ucai.fulicenter.adapter.GoodsAdapter;
 import cn.ucai.fulicenter.bean.BoutiqueBean;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.net.NetDao;
-import cn.ucai.fulicenter.net.OkHttpUtils;
+import cn.ucai.fulicenter.utils.OkHttpUtils;
 import cn.ucai.fulicenter.view.SpaceItemDecoration;
 
 public class BoutiqueChildActivity extends BaseActivity {
@@ -47,8 +47,7 @@ public class BoutiqueChildActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_boutique_child);
         ButterKnife.bind(this);
-        boutique = (BoutiqueBean) getIntent().getSerializableExtra(I.Boutique.CAT_ID);
-        L.i("8888888888" +boutique.toString());
+        boutique = (BoutiqueBean) getIntent().getParcelableExtra(I.Boutique.CAT_ID);
         if (boutique == null){
             finish();
         }

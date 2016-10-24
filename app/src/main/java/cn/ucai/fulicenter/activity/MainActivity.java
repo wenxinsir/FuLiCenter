@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.FuLiCenterApplication;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.fragment.PersonalCenterFragment;
 import cn.ucai.fulicenter.utils.L;
@@ -20,6 +21,7 @@ import cn.ucai.fulicenter.fragment.NewgoodsFragment;
 import cn.ucai.fulicenter.utils.MFGT;
 
 public class MainActivity extends BaseActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.new_good)
     RadioButton newGood;
@@ -151,14 +153,16 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-         if (FuLiCenterApplication.getUser()!=null){
-             index = 3;
-         }
+        L.e(TAG,"onResume...");
         setFragments();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        L.e(TAG,"onActivityResult,requestCode="+requestCode);
+        if (requestCode == I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser()!=null){
+            index = 3;
+        }
     }
 }

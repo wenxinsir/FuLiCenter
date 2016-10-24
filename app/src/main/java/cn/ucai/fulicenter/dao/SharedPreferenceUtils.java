@@ -1,6 +1,5 @@
 package cn.ucai.fulicenter.dao;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -25,10 +24,12 @@ public class SharedPreferenceUtils {
         }
         return instance;
     }
+
     public void savaUser(String username){
         mEditor.putString(SHARE_KEY_USER_NAME,username);
         mEditor.commit();
     }
+
     public String getUser(){
         return mSharedPreference.getString(SHARE_KEY_USER_NAME,null);
     }

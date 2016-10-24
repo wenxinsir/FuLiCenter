@@ -1,6 +1,6 @@
 package cn.ucai.fulicenter.view;
 
-import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 import android.widget.TextView;

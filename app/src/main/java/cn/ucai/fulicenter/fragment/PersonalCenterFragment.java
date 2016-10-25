@@ -30,6 +30,7 @@ public class PersonalCenterFragment extends BaseFragment {
     TextView mTvUserName;
 
     MainActivity mContext;
+    User user = null;
 
     @Nullable
     @Override
@@ -48,7 +49,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        User user = FuLiCenterApplication.getUser();
+        user = FuLiCenterApplication.getUser();
         L.e(TAG,"user ="+user);
         if (user == null){
             MFGT.gotoLogin(mContext);
@@ -61,6 +62,17 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     protected void setListener() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        user = FuLiCenterApplication.getUser();
+        L.e(TAG, "user =" + user);
+        if (user != null) {
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
+            mTvUserName.setText(user.getMuserNick());
+        }
     }
 
     @Override

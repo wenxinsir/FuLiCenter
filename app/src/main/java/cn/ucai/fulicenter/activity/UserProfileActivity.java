@@ -1,5 +1,6 @@
 package cn.ucai.fulicenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,14 +10,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.FuLiCenterApplication;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.User;
 import cn.ucai.fulicenter.dao.SharedPreferenceUtils;
+import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ImageLoader;
 import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.view.DisplayUtils;
 
 public class UserProfileActivity extends BaseActivity {
+    private static final String TAG = UserProfileActivity.class.getSimpleName();
     @Bind(R.id.iv_user_profile_avatar)
     ImageView mIvUserProfileAvatar;
     @Bind(R.id.tv_user_profile_name)
@@ -37,17 +41,17 @@ public class UserProfileActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        DisplayUtils.initBackWithTitle(mContext,getResources().getString(R.string.user_profile));
+        DisplayUtils.initBackWithTitle(mContext, getResources().getString(R.string.user_profile));
     }
 
     @Override
     protected void initData() {
-        user =  FuLiCenterApplication.getUser();
-        if (user != null){
-            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserProfileAvatar);
-        }else {
+        user = FuLiCenterApplication.getUser();
+        if (user == null) {
             finish();
+            return;
         }
+        showInfo();
     }
 
     @Override
@@ -61,6 +65,10 @@ public class UserProfileActivity extends BaseActivity {
             case R.id.layout_user_profile_avatar:
                 break;
             case R.id.layout_user_profile_username:
+                CommonUtils.showLongToast(R.string.username_connot_be_modify);
+                break;
+            case R.id.tv_user_profile_nick:
+                MFGT.gotoUpdateNick(mContext);
                 break;
             case R.id.btn_logout:
                 logout();
@@ -69,11 +77,34 @@ public class UserProfileActivity extends BaseActivity {
     }
 
     private void logout() {
-        if (user!=null){
+        if (user != null) {
             SharedPreferenceUtils.getInstence(mContext).removeUser();
             FuLiCenterApplication.setUser(null);
             MFGT.gotoLogin(mContext);
         }
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showInfo();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK&&requestCode== I.REQUEST_CODE_NICK){
+            CommonUtils.showLongToast(R.string.update_user_nick_success);
+        }
+    }
+
+    private void showInfo(){
+        user = FuLiCenterApplication.getUser();
+        if (user != null) {
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserProfileAvatar);
+            mTvUserProfileName.setText(user.getMuserName());
+            mTvUserProfileNick.setText(user.getMuserNick());
+        }
     }
 }

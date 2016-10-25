@@ -69,7 +69,12 @@ public class PersonalCenterFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick(R.id.tv_center_settings)
-    public void onClick() {
+    @OnClick({R.id.tv_center_settings,R.id.center_user_info})
+    public void gotoSettings() {
+        MFGT.gotoSettings(mContext);
+    }
+
+    private void initOrderList(){
+
     }
 }

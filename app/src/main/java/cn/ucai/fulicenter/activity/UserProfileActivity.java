@@ -17,7 +17,6 @@ import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.view.DisplayUtils;
 
 public class UserProfileActivity extends BaseActivity {
-
     @Bind(R.id.iv_user_profile_avatar)
     ImageView mIvUserProfileAvatar;
     @Bind(R.id.tv_user_profile_name)

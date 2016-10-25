@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity {
         NetDao.login(mContent, username, password, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-                Result result = ResultUtils.getListResultFromJson(s,User.class);
+                Result result = ResultUtils.getResultFromJson(s,User.class);
                 L.e(TAG,"result = "+ result);
                 if (result == null){
                     CommonUtils.showLongToast(R.string.login_fail);

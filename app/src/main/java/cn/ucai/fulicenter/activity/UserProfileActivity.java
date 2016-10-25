@@ -1,6 +1,8 @@
 package cn.ucai.fulicenter.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -119,19 +121,37 @@ public class UserProfileActivity extends BaseActivity {
     }
 
     private void updateAvatar() {
-        File file = OnSetAvatarListener.getAvatarFile(mContext,user.getMuserName());
+        File file = new File(OnSetAvatarListener.getAvatarPath(mContext,
+                user.getMavatarPath()+"/" +user.getMuserName()+I.AVATAR_SUFFIX_JPG));
         L.e("file = "+ file.exists());
         L.e("file="+file.getAbsolutePath());
+        final ProgressDialog pd = new ProgressDialog(mContext);
+        pd.setMessage(getResources().getString(R.string.update_user_avatar));
+        pd.show();
         NetDao.updateAvatar(mContext, user.getMuserName(), file, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 L.e("s="+s);
                 Result result = ResultUtils.getListResultFromJson(s,User.class);
                 L.e("result="+result);
+                if (result==null){
+                    CommonUtils.showLongToast(R.string.update_user_avatar_fail);
+                }else {
+                    User u = (User) result.getRetData();
+                    if (result.isRetMsg()){
+                        FuLiCenterApplication.setUser(u);
+                        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(u),mContext,mIvUserProfileAvatar);
+                        CommonUtils.showLongToast(R.string.update_user_avatar_success);
+                    }else {
+                        CommonUtils.showLongToast(R.string.update_user_avatar_fail);
+                    }
+                }
+                pd.dismiss();
             }
 
             @Override
             public void onError(String error) {
+                CommonUtils.showLongToast(R.string.update_user_avatar_fail);
                 L.e("error = "+ error);
 
             }

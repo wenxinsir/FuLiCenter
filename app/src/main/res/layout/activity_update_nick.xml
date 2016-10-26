@@ -29,7 +29,7 @@
         android:background="@drawable/tb_btn_login_orange_normal"
         android:gravity="center"
         android:paddingBottom="7dp"
-        android:text="退出"
+        android:text="保存"
         android:textColor="@android:color/white"
         android:textSize="18sp"/>
 </LinearLayout>

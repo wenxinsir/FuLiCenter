@@ -61,8 +61,8 @@ public class PersonalCenterFragment extends BaseFragment {
         user = FuLiCenterApplication.getUser();
         L.e(TAG, "user =" + user);
         if (user == null) {
-            MFGT.gotoLogin(mContext);
-        } else {
+//            MFGT.gotoLogin(mContext);
+//        } else {
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
             mTvUserName.setText(user.getMuserNick());
         }

@@ -70,7 +70,7 @@ public class UserProfileActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.layout_user_profile_avatar, R.id.layout_user_profile_username, R.id.btn_logout})
+    @OnClick({R.id.layout_user_profile_avatar, R.id.layout_user_profile_username,R.id.tv_user_profile_nick ,R.id.btn_logout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_user_profile_avatar:

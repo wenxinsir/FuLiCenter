@@ -14,6 +14,7 @@ import butterknife.OnClick;
 import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.MainActivity;
+import cn.ucai.fulicenter.bean.MessageBean;
 import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.bean.User;
 import cn.ucai.fulicenter.dao.UserDao;
@@ -36,6 +37,8 @@ public class PersonalCenterFragment extends BaseFragment {
 
     MainActivity mContext;
     User user = null;
+    @Bind(R.id.tv_collect_count)
+    TextView mTvCollectCount;
 
     @Nullable
     @Override
@@ -55,11 +58,11 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     protected void initData() {
         user = FuLiCenterApplication.getUser();
-        L.e(TAG,"user ="+user);
-        if (user == null){
+        L.e(TAG, "user =" + user);
+        if (user == null) {
             MFGT.gotoLogin(mContext);
-        }else {
-            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserAvatar);
+        } else {
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
             mTvUserName.setText(user.getMuserNick());
         }
     }
@@ -78,6 +81,7 @@ public class PersonalCenterFragment extends BaseFragment {
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
             mTvUserName.setText(user.getMuserNick());
             syncUserInfo();
+            syncCollectCount();
         }
     }
 
@@ -87,26 +91,26 @@ public class PersonalCenterFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.tv_center_settings,R.id.center_user_info})
+    @OnClick({R.id.tv_center_settings, R.id.center_user_info})
     public void gotoSettings() {
         MFGT.gotoSettings(mContext);
     }
 
-    private void initOrderList(){
+    private void initOrderList() {
 
     }
 
-    private void syncUserInfo(){
+    private void syncUserInfo() {
         NetDao.syncUserInfo(mContext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-               Result result = ResultUtils.getResultFromJson(s,User.class);
-                if (result!=null){
+                Result result = ResultUtils.getResultFromJson(s, User.class);
+                if (result != null) {
                     User u = (User) result.getRetData();
-                    if (!user.equals(u)){
+                    if (!user.equals(u)) {
                         UserDao dao = new UserDao(mContext);
                         boolean b = dao.saveUser(u);
-                        if (b){
+                        if (b) {
                             FuLiCenterApplication.setUser(u);
                             user = u;
                             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
@@ -119,6 +123,25 @@ public class PersonalCenterFragment extends BaseFragment {
             @Override
             public void onError(String error) {
 
+            }
+        });
+    }
+
+    private void syncCollectCount() {
+        NetDao.getCollectsCount(mContext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result != null && result.isSuccess()) {
+                    mTvCollectCount.setText(result.getMsg());
+                }else {
+                    mTvCollectCount.setText(String.valueOf(0));
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                mTvCollectCount.setText(String.valueOf(0));
+                L.e(TAG,"error ="+error);
             }
         });
     }

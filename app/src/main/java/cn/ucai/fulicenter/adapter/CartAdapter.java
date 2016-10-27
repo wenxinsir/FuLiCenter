@@ -25,9 +25,12 @@ import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.CartBean;
 import cn.ucai.fulicenter.bean.GoodsDetailsBean;
+import cn.ucai.fulicenter.bean.MessageBean;
+import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.ImageLoader;
 import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.MFGT;
+import cn.ucai.fulicenter.utils.OkHttpUtils;
 
 /**
  * Created by Administrator on 2016/10/19.
@@ -67,11 +70,7 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
                 mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
             }
         });
-//            ImageLoader.downloadImg(mContext,holder.mLvBoutiqueImg,boutiqueBean.getImageurl());
-//            holder.mTvBoutiqueTitle.setText(boutiqueBean.getTitle());
-//            holder.mTvBoutiqueName.setText(boutiqueBean.getName());
-//            holder.mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
-//            holder.mLayoutBoutiqueItem.setTag(boutiqueBean);
+        holder.mIvCartAdd.setTag(position);
     }
 
     @Override
@@ -104,5 +103,24 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
              super(view);
             ButterKnife.bind(this, view);
         }
+         @OnClick(R.id.iv_cart_add)
+         public void addCart(){
+              final int position = (int) mIvCartAdd.getTag();
+             CartBean cart = mList.get(position);
+             NetDao.updateCart(mContext, cart.getId(), cart.getCount() + 1, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                 @Override
+                 public void onSuccess(MessageBean result) {
+                     if (result!=null && result.isSuccess()){
+                         mList.get(position).setCount(mList.get(position).getCount()+1);
+                         mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
+                         mTvCartCount.setText("("+(mList.get(position).getCount())+")");
+                     }
+                 }
+
+                 @Override
+                 public void onError(String error) {
+                 }
+             });
+         }
     }
 }

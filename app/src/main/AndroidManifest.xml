@@ -68,7 +68,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <!--shareSDK　end->
+        <!--shareSDK　end-->
     </application>
 
 </manifest>

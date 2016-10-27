@@ -14,21 +14,25 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.MainActivity;
+import cn.ucai.fulicenter.adapter.CartAdapter;
+import cn.ucai.fulicenter.bean.CartBean;
+import cn.ucai.fulicenter.bean.User;
+import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ConvertUtils;
 import cn.ucai.fulicenter.utils.L;
-import cn.ucai.fulicenter.adapter.BoutiqueAdapter;
-import cn.ucai.fulicenter.bean.BoutiqueBean;
-import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 import cn.ucai.fulicenter.view.SpaceItemDecoration;
 
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class BoutiqueFragment extends BaseFragment {
+public class CartFragment extends BaseFragment {
+
+    private static final String TAG = CartFragment.class.getSimpleName();
 
     @Bind(R.id.tv_refresh)
     TextView mTvRefresh;
@@ -39,8 +43,8 @@ public class BoutiqueFragment extends BaseFragment {
 
     LinearLayoutManager llm;
     MainActivity mContent;
-    BoutiqueAdapter mAdapter;
-    ArrayList<BoutiqueBean> mList;
+    CartAdapter mAdapter;
+    ArrayList<CartBean> mList;
 
     @Nullable
     @Override
@@ -49,7 +53,7 @@ public class BoutiqueFragment extends BaseFragment {
         ButterKnife.bind(this, layout);
         mContent = (MainActivity) getContext();
         mList = new ArrayList<>();
-        mAdapter = new BoutiqueAdapter(mContent,mList);
+        mAdapter = new CartAdapter(mContent,mList);
         super.onCreateView(inflater,container,savedInstanceState);
         return layout;
     }
@@ -65,43 +69,41 @@ public class BoutiqueFragment extends BaseFragment {
             public void onRefresh() {
                 mSrl.setRefreshing(true);
                 mTvRefresh.setVisibility(View.VISIBLE);
-                downloadBoutique();
+                downloadCart();
             }
         });
     }
 
     @Override
     protected void initData() {
-        downloadBoutique();
+        downloadCart();
     }
 
-    public void downloadBoutique(){
-        NetDao.downloadCart(mContent,new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
-            @Override
-            public void onSuccess(BoutiqueBean[] result) {
-                mSrl.setRefreshing(false);
-                mTvRefresh.setVisibility(View.GONE);
-                L.e("result" + result);
-                if (result != null && result.length > 0) {
-                    ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
+    public void downloadCart(){
+        User user = FuLiCenterApplication.getUser();
+        if (user != null){
+            NetDao.downloadCart(mContent,user.getMuserName(), new OkHttpUtils.OnCompleteListener<CartBean[]>() {
+                @Override
+                public void onSuccess(CartBean[] result) {
+                    L.e(TAG,"result="+result);
+                    mSrl.setRefreshing(false);
+                    mTvRefresh.setVisibility(View.GONE);
+                    L.e("result" + result);
+                    if (result != null && result.length > 0) {
+                        ArrayList<CartBean> list = ConvertUtils.array2List(result);
                         mAdapter.initData(list);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(String error) {
-                mSrl.setRefreshing(false);
-                mTvRefresh.setVisibility(View.GONE);
-                CommonUtils.showShortToast(error);
-                L.e("error" + error);
-            }
-        });
-    }
-
-            @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+                @Override
+                public void onError(String error) {
+                    mSrl.setRefreshing(false);
+                    mTvRefresh.setVisibility(View.GONE);
+                    CommonUtils.showShortToast(error);
+                    L.e("error" + error);
+                }
+            });
+        }
     }
 
     @Override

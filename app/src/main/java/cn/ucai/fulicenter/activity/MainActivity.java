@@ -1,6 +1,7 @@
 package cn.ucai.fulicenter.activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.fragment.CartFragment;
 import cn.ucai.fulicenter.fragment.PersonalCenterFragment;
 import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
@@ -43,6 +45,7 @@ public class MainActivity extends BaseActivity {
     NewgoodsFragment mNewgoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    CartFragment mCartFragment;
     PersonalCenterFragment mPersonalCenterFragment;
 
     @Override
@@ -60,17 +63,19 @@ public class MainActivity extends BaseActivity {
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
         mPersonalCenterFragment = new PersonalCenterFragment();
+        mCartFragment = new CartFragment();
         mFragments[0] = mNewgoodsFragment;
         mFragments[1] = mBoutiqueFragment;
         mFragments[2] = mCategoryFragment;
         mFragments[3] = mPersonalCenterFragment;
+        mFragments[4] = mCartFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, mNewgoodsFragment)
-                .add(R.id.fragment_container, mBoutiqueFragment)
-                .add(R.id.fragment_container, mCategoryFragment)
-                .hide(mBoutiqueFragment)
-                .hide(mCategoryFragment)
+//                .add(R.id.fragment_container, mBoutiqueFragment)
+//                .add(R.id.fragment_container, mCategoryFragment)
+//                .hide(mBoutiqueFragment)
+//                .hide(mCategoryFragment)
                 .show(mNewgoodsFragment)
                 .commit();
     }
@@ -109,13 +114,17 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.personal:
                 if(FuLiCenterApplication.getUsername()==null){
-                    MFGT.gotoLogin(this);
+                    MFGT.gotoLoginFromCart(this);
                 }else {
                     index = 3;
                 }
                 break;
             case R.id.cart:
-                index = 4;
+                if(FuLiCenterApplication.getUsername()==null){
+                    MFGT.gotoLogin(this);
+                }else {
+                    index = 4;
+                }
                 break;
         }
         setFragments();
@@ -164,8 +173,11 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         L.e(TAG,"onActivityResult,requestCode="+requestCode);
-        if (requestCode == I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser()!=null){
+        if (requestCode == I.REQUEST_CODE_LOGIN ){
             index = 3;
+        }
+        if(requestCode == I.REQUEST_CODE_LOGIN_FROM_CART){
+            index = 4;
         }
     }
 }

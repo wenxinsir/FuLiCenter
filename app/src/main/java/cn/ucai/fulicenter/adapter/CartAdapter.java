@@ -1,10 +1,8 @@
 package cn.ucai.fulicenter.adapter;
 
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,8 +25,6 @@ import cn.ucai.fulicenter.bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.bean.MessageBean;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.utils.ImageLoader;
-import cn.ucai.fulicenter.utils.L;
-import cn.ucai.fulicenter.utils.MFGT;
 import cn.ucai.fulicenter.utils.OkHttpUtils;
 
 /**
@@ -62,7 +57,7 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
             holder.mTvCartPrice.setText(goods.getCurrencyPrice());
         }
         holder.mTvCartCount.setText("("+cartBean.getCount()+")");
-        holder.mCbCartSelected.setChecked(false);
+        holder.mCbCartSelected.setChecked(cartBean.isChecked());
         holder.mCbCartSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean b) {
@@ -103,6 +98,7 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
              super(view);
             ButterKnife.bind(this, view);
         }
+         //增加减少和删除购物车的数量
          @OnClick(R.id.iv_cart_add)
          public void addCart(){
               final int position = (int) mIvCartAdd.getTag();
@@ -142,7 +138,21 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
                      }
                  });
              }else {
+                NetDao.deleteCart(mContext, cart.getId(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if (result!=null && result.isSuccess()){
+                            mList.remove(position);
+                            mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
+                            notifyDataSetChanged();
+                        }
+                    }
 
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
              }
          }
     }

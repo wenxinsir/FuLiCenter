@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\dialog_enter.xml",
+        "source": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\res\\anim\\dialog_enter.xml"
+    },
+    {
+        "merged": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\cmbkb_push_bottom_out.xml",
+        "source": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\anim\\cmbkb_push_bottom_out.xml"
+    },
+    {
+        "merged": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\cmbkb_push_bottom_out.xml",
+        "source": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\FuLiCenter.lib\\pingpp\\unspecified\\res\\anim\\cmbkb_push_bottom_out.xml"
+    },
+    {
+        "merged": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\cmbkb_push_bottom_in.xml",
+        "source": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\pingpp-android.lib\\pingpp\\unspecified\\res\\anim\\cmbkb_push_bottom_in.xml"
+    },
+    {
+        "merged": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\dialog_exit.xml",
+        "source": "F:\\Users\\clawpo\\github\\pingpp-android\\lib\\pingpp_one\\res\\anim\\dialog_exit.xml"
+    },
+    {
+        "merged": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\dialog_enter.xml",
+        "source": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\res\\anim\\dialog_enter.xml"
+    },
+    {
+        "merged": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\dialog_exit.xml",
+        "source": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\res\\anim\\dialog_exit.xml"
+    },
+    {
+        "merged": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\build\\intermediates\\res\\merged\\release\\anim\\cmbkb_push_bottom_in.xml",
+        "source": "F:\\Studio\\FuLiCenter\\lib\\pingpp_one\\build\\intermediates\\exploded-aar\\FuLiCenter.lib\\pingpp\\unspecified\\res\\anim\\cmbkb_push_bottom_in.xml"
+    }
+]
